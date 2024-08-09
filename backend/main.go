@@ -26,11 +26,19 @@ type User struct {
 var db *sql.DB
 
 func main() {
+
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "development"
+	}
+
 	// Load .env file
-	err := godotenv.Load()
+	err := godotenv.Load(".env." + env + ".local")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	godotenv.Load(".env." + env)
+	godotenv.Load()
 
 	// Database connection setup
 	cfg := mysql.Config{
