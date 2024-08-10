@@ -14,6 +14,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -72,13 +73,22 @@ func main() {
 	r.HandleFunc("/register", registerHandler).Methods("POST")
 	r.HandleFunc("/login", loginHandler).Methods("POST")
 
+	// handle Cors
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedMethods: []string{"POST"},
+		AllowedHeaders: []string{"Content-Type", "application/json"},
+	})
+
+	handler := c.Handler(r)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // Default port if not specified
 	}
 
 	log.Printf("Server is running on http://localhost:%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, r))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 
 func runMigrations(db *sql.DB) error {
@@ -160,6 +170,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	print(&user.Email)
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginAttempt.Password))
 	if err != nil {
 		http.Error(w, "Invalid password", http.StatusUnauthorized)
