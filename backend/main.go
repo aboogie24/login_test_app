@@ -76,12 +76,16 @@ func main() {
 
 	r.HandleFunc("/register", registerHandler).Methods("POST")
 	r.HandleFunc("/login", loginHandler).Methods("POST")
+	r.HandleFunc("/users", getUsersHandler).Methods("GET")
 
 	frontend := os.Getenv("HOST")
+	frontend_port := os.Getenv("HOST_PORT")
+
+	log.Printf("frontend: http://%s:%s", frontend, frontend_port)
 
 	// handle Cors
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://%s:3000", frontend},
+		AllowedOrigins: []string{"http://%s:%s", frontend, frontend_port},
 		AllowedMethods: []string{"POST"},
 		AllowedHeaders: []string{"Content-Type", "application/json"},
 	})
@@ -190,4 +194,32 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		"message": "Login successful",
 		"user":    user,
 	})
+}
+
+func getUsersHandler(w http.ResponseWriter, r *http.Request) {
+
+	rows, err := db.Query("SELECT id, email FROM users")
+	if err != nil {
+		log.Println(err)
+
+	}
+	defer rows.Close()
+
+	var users []User
+	for rows.Next() {
+		var u User
+		if err := rows.Scan(&u.ID, &u.Email); err != nil {
+			log.Fatal(err)
+		}
+		users = append(users, u)
+	}
+	if err := rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println(users)
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(users)
 }
