@@ -4,7 +4,9 @@
       "paths": {
         "@/*": ["*"]
       }, 
-      "jsx": "react"
+      "jsx": "react",
+      "allowImportingTsExtensions": true,
+      "noEmit": true
     }
 }
   

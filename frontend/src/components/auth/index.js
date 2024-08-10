@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
-import { Label } from "../ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card.tsx"
+import { Input } from "../ui/input.tsx"
+import { Button } from "../ui/button.tsx"
+import { Label } from "../ui/label.tsx"
 
 const API_URL = process.env.REACT_APP_API_URL;
 

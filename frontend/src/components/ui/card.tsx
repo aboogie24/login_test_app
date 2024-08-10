@@ -1,6 +1,7 @@
 import * as React from "react"
 
-import { cn } from "../lib/utils"
+// eslint-disable-next-line no-use-before-define
+import { cn } from "../lib/utils.ts"
 
 const Card = React.forwardRef<
   HTMLDivElement,

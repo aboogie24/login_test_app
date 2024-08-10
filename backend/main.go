@@ -77,9 +77,11 @@ func main() {
 	r.HandleFunc("/register", registerHandler).Methods("POST")
 	r.HandleFunc("/login", loginHandler).Methods("POST")
 
+	frontend := os.Getenv("HOST")
+
 	// handle Cors
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedOrigins: []string{"http://%s:3000", frontend},
 		AllowedMethods: []string{"POST"},
 		AllowedHeaders: []string{"Content-Type", "application/json"},
 	})
