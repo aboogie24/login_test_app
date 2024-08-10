@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    user: root
+    volumes:
+      - /tmp/mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_USER=test
+  app:
+    image: login_test_backend:latest
+    restart: always
+    ports:
+      - 23330:8080
+    depends_on:
+      - db
+  frontend: 
+    image: login_test_frontend:latest
+    restart: always
+    ports: 
+      - 24400:3000
+    depends_on:
+      - db

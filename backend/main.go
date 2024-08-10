@@ -54,11 +54,13 @@ func main() {
 
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
+		log.Println("Can't open database AB")
 		log.Fatal(err)
 	}
 
 	pingErr := db.Ping()
 	if pingErr != nil {
+		log.Println("Pinging failed")
 		log.Fatal(pingErr)
 	}
 	log.Println("Connected to the database")
@@ -67,6 +69,8 @@ func main() {
 	if err := runMigrations(db); err != nil {
 		log.Fatal(err)
 	}
+
+	log.Println("Finished Migrations")
 
 	r := mux.NewRouter()
 
