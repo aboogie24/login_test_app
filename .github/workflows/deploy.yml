@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   sonarqube:
-    name: Build and analyze
+    name: Build_and_analyze
     runs-on: ubuntu-latest
     
     steps:

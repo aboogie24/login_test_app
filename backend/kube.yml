@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: login_test_backend
-        image: <Image>
+        image: harbor.alfredbrowniii.io/test/login_test_backend:latest
         resources:
           limits:
             memory: "128Mi"
