@@ -45,7 +45,7 @@ mysql:
 # Application-specific environment variables
 env:
   - name: DB_HOST
-    value: "{{ .Release.Name }}-mysql"
+    value: '{{ .Release.Name }}-mysql'
   - name: DB_PORT
     value: "3306"
   - name: DB_NAME
