@@ -6,6 +6,7 @@ spec:
   selector:
     matchLabels:
       app: login_test_backend
+  replicas: 1
   template:
     metadata:
       labels:

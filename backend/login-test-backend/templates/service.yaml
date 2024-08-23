@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "login-test-backend.fullname" . }}
+  labels:
+    {{- include "login-test-backend.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+  selector:
+    {{- include "login-test-backend.selectorLabels" . | nindent 4 }}

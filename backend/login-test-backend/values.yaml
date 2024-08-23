@@ -1,0 +1,110 @@
+# Replica count for the main application
+replicaCount: 1
+
+# Image configuration for login_test_backend
+image:
+  repository: harbor.alfredbrowniii.io/test/login_test_backend
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Kubernetes service configuration
+service:
+  type: ClusterIP
+  port: 8080
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: 500m
+    memory: 128Mi
+  requests:
+    cpu: 250m
+    memory: 64Mi
+
+# Node selector for pod assignment
+nodeSelector: {}
+
+# Tolerations for pod assignment
+tolerations: []
+
+# Affinity for pod assignment
+affinity: {}
+
+# MySQL dependency configuration
+mysql:
+  auth:
+    rootPassword: test
+    database: login_test_db
+    username: login_test_user
+    password: test
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+  
+# Application-specific environment variables
+env:
+  - name: DB_HOST
+    value: "{{ .Release.Name }}-mysql"
+  - name: DB_PORT
+    value: "3306"
+  - name: DB_NAME
+    value: "{{ .Values.mysql.auth.database }}"
+  - name: DB_USER
+    value: "{{ .Values.mysql.auth.username }}"
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "{{ .Release.Name }}-mysql"
+        key: mysql-password
+
+# Pod annotations
+podAnnotations: {}
+
+# Pod security context
+podSecurityContext: {}
+
+# Container security context
+securityContext: {}
+
+# Ingress configuration (if needed)
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+# Autoscaling configuration (if needed)
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional labels
+labels: {}
+
+# Additional annotations
+annotations: {}
+
+# Liveness probe
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+# Readiness probe
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
