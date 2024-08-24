@@ -55,7 +55,7 @@ env:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: "-mysql"
+        name: "mysql"
         key: mysql-password
 
 # Pod annotations
