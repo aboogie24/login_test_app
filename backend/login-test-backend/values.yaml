@@ -55,7 +55,7 @@ env:
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: {{ .Release.Name }}-mysql
+        name: '{{ .Release.Name }}-mysql'
         key: mysql-password
 
 # Pod annotations
