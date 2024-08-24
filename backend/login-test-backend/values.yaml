@@ -52,7 +52,7 @@ env:
     value: "{{ .Values.mysql.auth.database }}"
   - name: DB_USER
     value: "{{ .Values.mysql.auth.username }}"
-  - name: DB_PASSWORD
+  - name: DB_PASS
     valueFrom:
       secretKeyRef:
         name: "{{ .Release.Name }}-mysql"
