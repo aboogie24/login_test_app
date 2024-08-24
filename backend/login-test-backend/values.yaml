@@ -42,21 +42,21 @@ mysql:
       enabled: true
       size: 8Gi
   
-# Application-specific environment variables
-env:
-  - name: DB_HOST
-    value: '{{ .Release.Name }}-mysql'
-  - name: DB_PORT
-    value: "3306"
-  - name: DB_NAME
-    value: "test"
-  - name: DB_USER
-    value: "login_test_user"
-  - name: DB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: '{{ .Release.Name }}-mysql'
-        key: mysql-password
+# # Application-specific environment variables
+# env:
+#   - name: DB_HOST
+#     value: '{{ .Release.Name }}-mysql'
+#   - name: DB_PORT
+#     value: "3306"
+#   - name: DB_NAME
+#     value: "test"
+#   - name: DB_USER
+#     value: "login_test_user"
+#   - name: DB_PASSWORD
+#     valueFrom:
+#       secretKeyRef:
+#         name: '{{ .Release.Name }}-mysql'
+#         key: mysql-password
 
 # Pod annotations
 podAnnotations: {}
