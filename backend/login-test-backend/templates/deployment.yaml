@@ -40,7 +40,20 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- toYaml .Values.env | nindent 12 }}
+            - name: DB_HOST
+              value: "{{ .Release.Name }}-mysql"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "test"
+            - name: DB_USER
+              value: "{{ .Values.mysql.auth.username}}"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ .Release.Name }}-mysql'
+                  key: mysql-password
+
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
