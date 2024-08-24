@@ -45,17 +45,17 @@ mysql:
 # Application-specific environment variables
 env:
   - name: DB_HOST
-    value: '{{ .Release.Name }}-mysql'
+    value: 'login-test-backend-mysql'
   - name: DB_PORT
     value: "3306"
   - name: DB_NAME
-    value: "{{ .Values.mysql.auth.database }}"
+    value: "test"
   - name: DB_USER
-    value: "{{ .Values.mysql.auth.username }}"
+    value: "login_test_user"
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: '{{ .Release.Name }}-mysql'
+        name: 'login-test-backend-mysql'
         key: mysql-password
 
 # Pod annotations
