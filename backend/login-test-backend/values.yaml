@@ -3,9 +3,9 @@ replicaCount: 1
 
 # Image configuration for login_test_backend
 image:
-  repository: harbor.alfredbrowniii.io/test/login_test_backend
+  repository: aboogie/login_test_backend
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "new"
 
 # Kubernetes service configuration
 service:
