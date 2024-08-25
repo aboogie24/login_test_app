@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  login-test-backend:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-08-24T14:56:20.939813425Z"
+    dependencies:
+    - name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.x.x
+    description: A Helm chart for login_test_backend with MySQL dependency
+    digest: cb9030678663ba53e29c1829252bcf8b0d8bc426049a6658af3052f97ce9bf4d
+    name: login-test-backend
+    type: application
+    urls:
+    - login-test-backend-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-08-24T14:56:20.935031262Z"
