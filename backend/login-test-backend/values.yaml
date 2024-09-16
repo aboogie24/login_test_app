@@ -3,9 +3,9 @@ replicaCount: 1
 
 # Image configuration for login_test_backend
 image:
-  repository: harbor.alfredbrowniii.io/test/login_test_backend
+  repository: aboogie/login_test_backend
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "new"
 
 # Kubernetes service configuration
 service:
@@ -42,6 +42,7 @@ mysql:
       enabled: true
       size: 8Gi
   
+<<<<<<< HEAD
 # Application-specific environment variables
 env:
   - name: DB_HOST
@@ -57,6 +58,23 @@ env:
       secretKeyRef:
         name: "{{ .Release.Name }}-mysql"
         key: mysql-password
+=======
+# # Application-specific environment variables
+# env:
+#   - name: DB_HOST
+#     value: '{{ .Release.Name }}-mysql'
+#   - name: DB_PORT
+#     value: "3306"
+#   - name: DB_NAME
+#     value: "test"
+#   - name: DB_USER
+#     value: "login_test_user"
+#   - name: DB_PASSWORD
+#     valueFrom:
+#       secretKeyRef:
+#         name: '{{ .Release.Name }}-mysql'
+#         key: mysql-password
+>>>>>>> f75516d78569d286cf8dd79bdabd197b9f22b25f
 
 # Pod annotations
 podAnnotations: {}
